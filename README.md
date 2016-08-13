@@ -28,5 +28,6 @@ After running code you see new files in project location where will be write new
 
 ## Additional info
 
-1. Internationalization doesn't supported yet. Now the main loader implementation is <code>ClasspathPropertiesErrorsLoader</code>.
-2. Code must be an Integer. But in properties file you can use another property key. You have to specify code loader like in example.
+1. Internationalization doesn't support. Now the main loader implementation is <code>ClasspathPropertiesErrorsLoader</code>;
+2. Code must be an Integer. But in properties file you can use another property key. You have to specify code loader like in example;
+3. It's not enough tested for production using and currently under development.
