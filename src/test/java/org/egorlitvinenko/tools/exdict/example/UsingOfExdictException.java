@@ -16,7 +16,7 @@ public class UsingOfExdictException {
 
     static {
 
-	// init it before using
+	// init it before using with default implementations
 	ExdictContext.initWithDefaults();
 
 	ExdictContext.getResolverInitProvider()
