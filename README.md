@@ -2,8 +2,7 @@
 Application Exception Dictionary Helper
 
 It helps automatically support for API Exception dictionaries like "Oracle Error Codes" for example.
-The goal is using <code>throw new ExdictException</code> like usual application exception, which automatically generate new properties files,
-where we can add additional information or use internationalization.
+The goal is programmer can using <code>throw new ExdictException</code> like usual application exception, which automatically generate new properties files, where other people (technical or analytical stuff or programmer too) can add additional information or use internationalization.
 
 ## About classes
 
@@ -21,7 +20,7 @@ For each property of <code>ExceptionInfo</code> you can specify loader (interfac
 
 Loaders and Stores combain into <code>ResolverInitProvider</code> and <code>ErrorsStoreProvider</code> accordingly and set in <code>ExdictContext</code>.
 
-So after setting you can simple throw <code>ExdictException</code> or <code>ExdictRuntimeException</code> (or subclass), which automatically support ExceptionInfos and generate for you property files by default.
+So after setting you can simple throw <code>ExdictException</code> or <code>ExdictRuntimeException</code> (or subclass), which automatically support ExceptionInfos and generate for you property files by default. After that you can take new files, add additional info if necessary and paste them into default exception dictionaries. 
 
 To start you can see example in <code>UsingOfExdictException</code>. There is example of default settings initialization and simple using.
 After running code you see new files in project location where will be write new property files. In src/test/resources you see default exceptions.
