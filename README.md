@@ -23,7 +23,7 @@ Loaders and Stores combain into <code>ResolverInitProvider</code> and <code>Erro
 
 So after setting you can simple throw <code>ExdictException</code> or <code>ExdictRuntimeException</code> (or subclass), which automatically support ExceptionInfos and generate for you property files by default.
 
-To start you can see example in <code>UsingOfExdictException</code>. Theres is example of default settings initialization and simple using. 
+To start you can see example in <code>UsingOfExdictException</code>. There is example of default settings initialization and simple using. 
 
 <code>
 package org.egorlitvinenko.tools.exdict.example;
