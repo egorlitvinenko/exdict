@@ -16,6 +16,8 @@ Code and message are unique, but message can specified with group of exceptions 
 By default code generates for each new exception message (<code>ExdictCodeGenerator</code>).
 And by default group is a part of message, if you specify <code>group</code> and <code>yourmessage</code> a message which stored will be <code>group:yourmessage</code>.
 
+## Add custom functionality
+
 For each property of <code>ExceptionInfo</code> you can specify loader (interface <code>ExdictErrorsLoader</code>) from default exception dictionaries and you have to specify classes for saving new exceptions (interface <code>ExdictErrorsStore</code>, or set ignored properties with <code>DefaultErrorsStoreProvider.getExcludedProperties</code> method). 
 
 Loaders and Stores combain into <code>ResolverInitProvider</code> and <code>ErrorsStoreProvider</code> accordingly and set in <code>ExdictContext</code>.
