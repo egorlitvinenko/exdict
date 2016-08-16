@@ -16,10 +16,18 @@ public class DefaultErrorsStoreProvider implements ErrorsStoreProvider {
 
     private final Map<String, ExdictErrorsStore> stores;
     private final Map<String, ExceptionInfo> infos;
+    private final INamespace namespace;
 
     public DefaultErrorsStoreProvider() {
 	stores = new HashMap<>();
 	infos = new HashMap<>();
+	namespace = ExdictContext.defaultNamespace();
+    }
+
+    public DefaultErrorsStoreProvider(INamespace namespace) {
+	stores = new HashMap<>();
+	infos = new HashMap<>();
+	this.namespace = namespace;
     }
 
     @Override
@@ -87,8 +95,7 @@ public class DefaultErrorsStoreProvider implements ErrorsStoreProvider {
     }
 
     protected String getRecordKeyValue(final ExceptionInfo info) {
-	String recordCode = ExdictContext.getResolverInitProvider().getExceptionInfosRecordCodeByCode()
-		.get(info.getCode());
+	String recordCode = namespace.getResolverInitProvider().getExceptionInfosRecordCodeByCode().get(info.getCode());
 	if (null == recordCode) {
 	    recordCode = String.valueOf(info.getCode());
 	}

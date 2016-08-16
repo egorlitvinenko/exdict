@@ -8,9 +8,17 @@ import java.util.Map;
  */
 public class DefaultCodeGenerator extends AbstractCodeGenerator implements ExdictCodeGenerator {
 
+    public DefaultCodeGenerator() {
+	super();
+    }
+
+    public DefaultCodeGenerator(INamespace namespace) {
+	super(namespace);
+    }
+
     protected void initGroups(final Map<String, Integer> groupInitialCodes, final Map<String, Integer> groupLastCodes,
 	    final ExceptionInfo info) {
-	final String group = ExdictContext.getGroupInfoHelper().getGroupName(info);
+	final String group = namespace.getGroupInfoHelper().getGroupName(info);
 	if (!groupInitialCodes.containsKey(group)) {
 	    groupInitialCodes.put(group, Integer.MAX_VALUE);
 	}

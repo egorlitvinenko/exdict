@@ -30,10 +30,12 @@ public class ClasspathPropertiesErrorsLoader extends AbstractErrorsLoader implem
 	final String path = getPath(resource);
 	final ClassLoader classLoader = getClassLoader();
 	final InputStream is = classLoader.getResourceAsStream(path);
-	final Properties properties = new Properties();
-	properties.load(is);
-	is.close();
-	properties.forEach((code, value) -> values.put(code.toString(), value));
+	if (null != is) {
+	    final Properties properties = new Properties();
+	    properties.load(is);
+	    is.close();
+	    properties.forEach((code, value) -> values.put(code.toString(), value));
+	}
     }
 
 }

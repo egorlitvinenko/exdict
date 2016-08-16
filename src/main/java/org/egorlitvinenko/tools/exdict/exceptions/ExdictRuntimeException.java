@@ -29,6 +29,14 @@ public class ExdictRuntimeException extends RuntimeException implements IExdictE
     }
 
     /**
+     * @see Exception
+     */
+    public ExdictRuntimeException(String namespace, String group, String message) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message));
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
+    }
+
+    /**
      * @see RuntimeException
      */
     protected ExdictRuntimeException(String message, Throwable cause) {
@@ -42,6 +50,14 @@ public class ExdictRuntimeException extends RuntimeException implements IExdictE
     protected ExdictRuntimeException(String group, String message, Throwable cause) {
 	super(ExdictContext.getGroupInfoHelper().getFullMessage(group, message), cause);
 	exdictContext = ExdictContext.of(this).with(group, message);
+    }
+
+    /**
+     * @see Exception
+     */
+    public ExdictRuntimeException(String namespace, String group, String message, Throwable cause) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message), cause);
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
     }
 
     /**
@@ -61,6 +77,16 @@ public class ExdictRuntimeException extends RuntimeException implements IExdictE
 	super(ExdictContext.getGroupInfoHelper().getFullMessage(group, message), cause, enableSuppression,
 		writableStackTrace);
 	exdictContext = ExdictContext.of(this).with(group, message);
+    }
+
+    /**
+     * @see Exception
+     */
+    protected ExdictRuntimeException(String namespace, String group, String message, Throwable cause,
+	    boolean enableSuppression, boolean writableStackTrace) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message), cause,
+		enableSuppression, writableStackTrace);
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
     }
 
     @Override

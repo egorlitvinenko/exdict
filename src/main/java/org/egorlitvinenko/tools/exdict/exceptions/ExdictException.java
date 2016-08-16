@@ -6,6 +6,7 @@ import org.egorlitvinenko.tools.exdict.ExdictContext;
  * @author Egor Litvinenko
  *
  */
+// https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc
 public class ExdictException extends Exception implements IExdictException {
 
     static final long serialVersionUID = -6187936659998236257L;
@@ -31,6 +32,14 @@ public class ExdictException extends Exception implements IExdictException {
     /**
      * @see Exception
      */
+    public ExdictException(String namespace, String group, String message) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message));
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
+    }
+
+    /**
+     * @see Exception
+     */
     public ExdictException(String message, Throwable cause) {
 	super(message, cause);
 	exdictContext = ExdictContext.of(this).with(message);
@@ -42,6 +51,14 @@ public class ExdictException extends Exception implements IExdictException {
     public ExdictException(String group, String message, Throwable cause) {
 	super(ExdictContext.getGroupInfoHelper().getFullMessage(group, message), cause);
 	exdictContext = ExdictContext.of(this).with(group, message);
+    }
+
+    /**
+     * @see Exception
+     */
+    public ExdictException(String namespace, String group, String message, Throwable cause) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message), cause);
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
     }
 
     /**
@@ -60,6 +77,16 @@ public class ExdictException extends Exception implements IExdictException {
 	super(ExdictContext.getGroupInfoHelper().getFullMessage(group, message), cause, enableSuppression,
 		writableStackTrace);
 	exdictContext = ExdictContext.of(this).with(group, message);
+    }
+
+    /**
+     * @see Exception
+     */
+    protected ExdictException(String namespace, String group, String message, Throwable cause,
+	    boolean enableSuppression, boolean writableStackTrace) {
+	super(ExdictContext.namespace(namespace).getGroupInfoHelper().getFullMessage(group, message), cause,
+		enableSuppression, writableStackTrace);
+	exdictContext = ExdictContext.of(this).with(namespace, group, message);
     }
 
     @Override

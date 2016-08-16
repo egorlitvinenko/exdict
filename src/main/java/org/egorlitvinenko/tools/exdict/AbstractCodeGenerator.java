@@ -10,6 +10,16 @@ import java.util.Map;
  */
 public abstract class AbstractCodeGenerator implements ExdictCodeGenerator {
 
+    protected final INamespace namespace;
+
+    public AbstractCodeGenerator() {
+	namespace = ExdictContext.defaultNamespace();
+    }
+
+    public AbstractCodeGenerator(INamespace namespace) {
+	this.namespace = namespace;
+    }
+
     @Override
     public void init(ResolverInitProvider resolverProvider) {
 	final Map<String, Integer> groupInitialCodes = new HashMap<>();
@@ -17,14 +27,14 @@ public abstract class AbstractCodeGenerator implements ExdictCodeGenerator {
 	resolverProvider.getExceptionInfosByCode()
 		.forEach((codeStr, info) -> this.initGroups(groupInitialCodes, groupLastCodes, info));
 	groupInitialCodes.keySet().forEach(group -> {
-	    ExdictContext.getGroupInfoHelper().addGroup(group, groupInitialCodes.get(group));
-	    ExdictContext.getGroupInfoHelper().getGroupInfos().get(group).setLastCode(groupLastCodes.get(group));
+	    namespace.getGroupInfoHelper().addGroup(group, groupInitialCodes.get(group));
+	    namespace.getGroupInfoHelper().getGroupInfos().get(group).setLastCode(groupLastCodes.get(group));
 	});
     }
 
     @Override
     public Integer next() {
-	return nextForGroup(ExdictContext.getGroupInfoHelper().getDefaultGroup());
+	return nextForGroup(namespace.getGroupInfoHelper().getDefaultGroup());
     }
 
     @Override
@@ -34,7 +44,7 @@ public abstract class AbstractCodeGenerator implements ExdictCodeGenerator {
 
     @Override
     public Integer nextForGroup(final String group) {
-	final GroupInfo info = ExdictContext.getGroupInfoHelper().getGroupInfos().get(group);
+	final GroupInfo info = namespace.getGroupInfoHelper().getGroupInfos().get(group);
 	if (null == info) {
 	    throw new RuntimeException("unknown group - " + group);
 	}
