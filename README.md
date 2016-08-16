@@ -15,12 +15,14 @@ The goal is programmer can using <code>throw new ExdictException</code> like usu
 Code and message are unique, but message can specified with group of exceptions (<code>IGroupInfoHelper</code>).
 By default code generates for each new exception message (<code>ExdictCodeGenerator</code>).
 And by default group is a part of message, if you specify <code>group</code> and <code>yourmessage</code> a message which stored will be <code>group:yourmessage</code>.
+All this interfaces combain into <code>INamespace</code>, which can provide different implementations and error's sources/storages for different libraries in one application. Each namespace contains default group and can contains specific groups. Group's names can be the same in different namespaces. See example of namespace initialization in <code>UsingOfExdictException</code>.
+
 
 ## Add custom functionality
 
 For each property of <code>ExceptionInfo</code> you can specify loader (interface <code>ExdictErrorsLoader</code>) from default exception dictionaries and you have to specify classes for saving new exceptions (interface <code>ExdictErrorsStore</code>, or set ignored properties with <code>DefaultErrorsStoreProvider.getExcludedProperties</code> method). 
 
-Loaders and Stores combain into <code>ResolverInitProvider</code> and <code>ErrorsStoreProvider</code> accordingly and set in <code>ExdictContext</code>.
+Loaders and Stores combain into <code>ResolverInitProvider</code> and <code>ErrorsStoreProvider</code> accordingly and set in <code>INamespace</code>. By default <code>ExdictContext</code> use own default namespace.
 
 So after setting you can simple throw <code>ExdictException</code> or <code>ExdictRuntimeException</code> (or subclass), which implements <code>IExdictExcepton</code>, which automatically support ExceptionInfos and generate for you property files by default. After that you can take new files, add additional info if necessary and paste them into default exception dictionaries. And additional info can be used like properties of <code>IExdictExcepton</code> when handling.
 
