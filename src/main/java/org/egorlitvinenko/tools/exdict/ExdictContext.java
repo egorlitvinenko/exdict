@@ -140,15 +140,6 @@ public class ExdictContext implements IExdictException {
 	return info;
     }
 
-    public ExceptionInfo findExceptionInfoByMessageObject(final String message) {
-	ExceptionInfo info = null;
-	info = this.objectNamespace.getResolverInitProvider().getExceptionInfosByMessage().get(message);
-	if (null == info) {
-	    info = this.objectNamespace.getErrorsStoreProvider().getByMessage(message);
-	}
-	return info;
-    }
-
     @Override
     public Integer getCode() {
 	return Optional.of(findExceptionInfoByMessage(getMessage())).map(info -> info.getCode()).orElse(null);
@@ -166,13 +157,12 @@ public class ExdictContext implements IExdictException {
 
     @Override
     public String getHelpMessage() {
-	return Optional.of(findExceptionInfoByMessageObject(getMessage())).map(info -> info.getHelpMessage())
-		.orElse(null);
+	return Optional.of(findExceptionInfoByMessage(getMessage())).map(info -> info.getHelpMessage()).orElse(null);
     }
 
     @Override
     public void setHelpMessage(String helpMessage) {
-	Optional.of(findExceptionInfoByMessageObject(getMessage())).map(info -> {
+	Optional.of(findExceptionInfoByMessage(getMessage())).map(info -> {
 	    info.setHelpMessage(helpMessage);
 	    return void.class;
 	});
@@ -180,13 +170,13 @@ public class ExdictContext implements IExdictException {
 
     @Override
     public String getDeveloperMessage() {
-	return Optional.of(findExceptionInfoByMessageObject(getMessage())).map(info -> info.getDeveloperMessage())
+	return Optional.of(findExceptionInfoByMessage(getMessage())).map(info -> info.getDeveloperMessage())
 		.orElse(null);
     }
 
     @Override
     public void setDeveloperMessage(String developerMessage) {
-	Optional.of(findExceptionInfoByMessageObject(getMessage())).map(info -> {
+	Optional.of(findExceptionInfoByMessage(getMessage())).map(info -> {
 	    info.setDeveloperMessage(developerMessage);
 	    return void.class;
 	});
