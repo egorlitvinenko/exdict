@@ -15,7 +15,7 @@ The goal is programmer can using <code>throw new ExdictException</code> like usu
 Code and message are unique, but message can specified with group of exceptions (<code>IGroupInfoHelper</code>).
 By default code generates for each new exception message (<code>ExdictCodeGenerator</code>).
 And by default group is a part of message, if you specify <code>group</code> and <code>yourmessage</code> a message which stored will be <code>group:yourmessage</code>.
-All this interfaces combain into <code>INamespace</code>, which can provide different implementations and error's sources/storages for different libraries in one application. Each namespace contains default group and can contains specific groups. Group's names can be the same in different namespaces. See example of namespace initialization in <code>UsingOfExdictException</code>.
+All this interfaces combain into <code>INamespace</code>, which provide different implementations and error's sources/storages for different libraries in one application. Each namespace contains default group and can contains specific groups. Group's names can be the same in different namespaces. See example of namespace initialization in <code>UsingOfExdictException</code>.
 
 
 ## Add custom functionality
