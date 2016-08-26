@@ -3,6 +3,9 @@ package org.egorlitvinenko.tools.exdict;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictException;
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictRuntimeException;
+
 /**
  * @author Egor Litvinenko
  *
@@ -80,6 +83,26 @@ public class Namespace implements INamespace {
     @Override
     public Set<String> getGroups() {
 	return groups;
+    }
+
+    @Override
+    public ExdictException getException(String message) {
+	return new ExdictException(getName(), getGroupInfoHelper().getDefaultGroup(), message);
+    }
+
+    @Override
+    public ExdictException getException(String message, Throwable e) {
+	return new ExdictException(getName(), getGroupInfoHelper().getDefaultGroup(), message, e);
+    }
+
+    @Override
+    public ExdictRuntimeException getRuntimeException(String message) {
+	return new ExdictRuntimeException(getName(), getGroupInfoHelper().getDefaultGroup(), message);
+    }
+
+    @Override
+    public ExdictRuntimeException getRuntimeException(String message, Throwable e) {
+	return new ExdictRuntimeException(getName(), getGroupInfoHelper().getDefaultGroup(), message, e);
     }
 
 }

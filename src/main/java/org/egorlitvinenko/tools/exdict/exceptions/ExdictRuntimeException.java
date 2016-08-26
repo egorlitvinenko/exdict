@@ -1,5 +1,6 @@
 package org.egorlitvinenko.tools.exdict.exceptions;
 
+import org.egorlitvinenko.tools.exdict.ExceptionInfo;
 import org.egorlitvinenko.tools.exdict.ExdictContext;
 
 /**
@@ -117,6 +118,11 @@ public class ExdictRuntimeException extends RuntimeException implements IExdictE
     @Override
     public String getGroup() {
 	return exdictContext.getGroup();
+    }
+
+    @Override
+    public ExceptionInfo getExceptionInfo() {
+	return exdictContext.findExceptionInfoByMessage(getMessage());
     }
 
 }

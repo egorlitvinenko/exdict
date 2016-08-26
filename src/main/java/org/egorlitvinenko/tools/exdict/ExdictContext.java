@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictException;
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictExceptionHelper;
 import org.egorlitvinenko.tools.exdict.exceptions.IExdictException;
 
 /**
@@ -14,7 +16,7 @@ import org.egorlitvinenko.tools.exdict.exceptions.IExdictException;
  */
 public class ExdictContext implements IExdictException {
 
-    public static final String DEFAULT_NAMESPACE = "DEFAULT_NAMESPACE";
+    public static String DEFAULT_NAMESPACE = "DEFAULT_NAMESPACE";
 
     private static Map<String, INamespace> namespaces = new ConcurrentHashMap<>();
 
@@ -48,6 +50,14 @@ public class ExdictContext implements IExdictException {
 
     public static void setGroupInfoHelper(IGroupInfoHelper groupInfoHelper) {
 	namespaces.get(DEFAULT_NAMESPACE).setGroupInfoHelper(groupInfoHelper);
+    }
+
+    public static String getDefaultNamespace() {
+	return DEFAULT_NAMESPACE;
+    }
+
+    public static void setDefaultNamespace(String defaultNamespace) {
+	DEFAULT_NAMESPACE = defaultNamespace;
     }
 
     public static void flushAll() throws Exception {
@@ -103,6 +113,11 @@ public class ExdictContext implements IExdictException {
 
     private ExdictContext(IExdictException exception) {
 	this.exception = exception;
+    }
+
+    public static ExdictContext wrap(Exception exception) {
+	final ExdictException ee = ExdictExceptionHelper.newException(exception.getMessage(), exception);
+	return of(ee);
     }
 
     public static ExdictContext of(IExdictException exception) {
@@ -180,6 +195,11 @@ public class ExdictContext implements IExdictException {
 	    info.setDeveloperMessage(developerMessage);
 	    return void.class;
 	});
+    }
+
+    @Override
+    public ExceptionInfo getExceptionInfo() {
+	return this.findExceptionInfoByMessage(getMessage());
     }
 
 }

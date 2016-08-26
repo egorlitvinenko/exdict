@@ -2,6 +2,9 @@ package org.egorlitvinenko.tools.exdict;
 
 import java.util.Set;
 
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictException;
+import org.egorlitvinenko.tools.exdict.exceptions.ExdictRuntimeException;
+
 /**
  * @author Egor Litvinenko
  *
@@ -32,4 +35,11 @@ public interface INamespace {
 
     public Set<String> getGroups();
 
+    public ExdictException getException(String message);
+
+    public ExdictException getException(String message, Throwable e);
+
+    public ExdictRuntimeException getRuntimeException(String message);
+
+    public ExdictRuntimeException getRuntimeException(String message, Throwable e);
 }

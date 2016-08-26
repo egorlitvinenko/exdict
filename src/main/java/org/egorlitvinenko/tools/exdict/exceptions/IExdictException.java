@@ -1,5 +1,7 @@
 package org.egorlitvinenko.tools.exdict.exceptions;
 
+import org.egorlitvinenko.tools.exdict.ExceptionInfo;
+
 public interface IExdictException {
 
     Integer getCode();
@@ -15,5 +17,7 @@ public interface IExdictException {
     String getDeveloperMessage();
 
     void setDeveloperMessage(String developerMessage);
+
+    ExceptionInfo getExceptionInfo();
 
 }
