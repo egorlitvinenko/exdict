@@ -27,7 +27,7 @@ public class ClasspathPropertiesErrorsLoader extends AbstractErrorsLoader implem
     }
 
     @Override
-    protected void loadExternal(Object resource) throws Exception {
+    protected void loadInternal(Object resource) throws Exception {
         final String path = getPath(resource);
         final ClassLoader classLoader = getClassLoader();
         final InputStream is = classLoader.getResourceAsStream(path);

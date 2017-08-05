@@ -3,7 +3,7 @@ package org.datastd.tools.exdict.context.impl;
 import org.datastd.tools.exdict.context.ErrorsStoreProvider;
 import org.datastd.tools.exdict.context.ExdictContext;
 import org.datastd.tools.exdict.context.ExdictErrorsStore;
-import org.datastd.tools.exdict.context.INamespace;
+import org.datastd.tools.exdict.context.Namespace;
 import org.datastd.tools.exdict.exceptions.ExceptionInfo;
 
 import java.beans.Introspector;
@@ -22,7 +22,7 @@ public class DefaultErrorsStoreProvider implements ErrorsStoreProvider {
 
     private final Map<String, ExdictErrorsStore> stores;
     private final Map<String, ExceptionInfo> infos;
-    private final INamespace namespace;
+    private final Namespace namespace;
 
     public DefaultErrorsStoreProvider() {
         stores = new ConcurrentHashMap<>();
@@ -30,7 +30,7 @@ public class DefaultErrorsStoreProvider implements ErrorsStoreProvider {
         namespace = ExdictContext.defaultNamespace();
     }
 
-    public DefaultErrorsStoreProvider(INamespace namespace) {
+    public DefaultErrorsStoreProvider(Namespace namespace) {
         stores = new ConcurrentHashMap<>();
         infos = new ConcurrentHashMap<>();
         this.namespace = namespace;
@@ -101,7 +101,7 @@ public class DefaultErrorsStoreProvider implements ErrorsStoreProvider {
     }
 
     protected String getRecordKeyValue(final ExceptionInfo info) {
-        String recordCode = namespace.getResolverInitProvider().getExceptionInfosRecordCodeByCode().get(info.getCode());
+        String recordCode = namespace.getInitializationProvider().getExceptionInfosRecordCodeByCode().get(info.getCode());
         if (null == recordCode) {
             recordCode = String.valueOf(info.getCode());
         }

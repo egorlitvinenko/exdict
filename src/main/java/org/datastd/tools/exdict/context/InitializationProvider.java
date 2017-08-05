@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author Egor Litvinenko
  */
-public interface ResolverInitProvider {
+public interface InitializationProvider {
 
     ExdictErrorsLoader getCodeLoader();
 

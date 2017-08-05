@@ -1,6 +1,6 @@
 package org.datastd.tools.exdict.context.impl;
 
-import org.datastd.tools.exdict.context.IGroupInfoHelper;
+import org.datastd.tools.exdict.context.GroupInfoHelper;
 import org.datastd.tools.exdict.exceptions.ExceptionInfo;
 import org.datastd.tools.exdict.exceptions.GroupInfo;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * @author Egor Litvinenko
  */
-public class DefaultGroupInfoHelper implements IGroupInfoHelper {
+public class DefaultGroupInfoHelper implements GroupInfoHelper {
 
     protected Map<String, GroupInfo> groupInfos;
 

@@ -7,7 +7,7 @@ import java.util.Comparator;
  */
 public interface ExdictCodeGenerator {
 
-    void init(final ResolverInitProvider resolverProvider);
+    void init(final InitializationProvider resolverProvider);
 
     Comparator<Integer> getCodeComparator();
 

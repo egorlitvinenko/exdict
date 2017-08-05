@@ -2,8 +2,8 @@ package org.datastd.tools.exdict.context.impl;
 
 import org.datastd.tools.exdict.context.ExdictCodeGenerator;
 import org.datastd.tools.exdict.context.ExdictContext;
-import org.datastd.tools.exdict.context.INamespace;
-import org.datastd.tools.exdict.context.ResolverInitProvider;
+import org.datastd.tools.exdict.context.Namespace;
+import org.datastd.tools.exdict.context.InitializationProvider;
 import org.datastd.tools.exdict.exceptions.ExceptionInfo;
 import org.datastd.tools.exdict.exceptions.GroupInfo;
 
@@ -16,18 +16,18 @@ import java.util.Map;
  */
 public abstract class AbstractCodeGenerator implements ExdictCodeGenerator {
 
-    protected final INamespace namespace;
+    protected final Namespace namespace;
 
     public AbstractCodeGenerator() {
         namespace = ExdictContext.defaultNamespace();
     }
 
-    public AbstractCodeGenerator(INamespace namespace) {
+    public AbstractCodeGenerator(Namespace namespace) {
         this.namespace = namespace;
     }
 
     @Override
-    public void init(ResolverInitProvider resolverProvider) {
+    public void init(InitializationProvider resolverProvider) {
         final Map<String, Integer> groupInitialCodes = new HashMap<>();
         final Map<String, Integer> groupLastCodes = new HashMap<>();
         resolverProvider.getExceptionInfosByCode()

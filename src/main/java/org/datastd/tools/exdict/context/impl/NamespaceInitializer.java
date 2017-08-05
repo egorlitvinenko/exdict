@@ -3,7 +3,7 @@ package org.datastd.tools.exdict.context.impl;
 import org.datastd.tools.exdict.context.ExdictContext;
 import org.datastd.tools.exdict.context.ExdictErrorsLoader;
 import org.datastd.tools.exdict.context.ExdictErrorsStore;
-import org.datastd.tools.exdict.context.INamespace;
+import org.datastd.tools.exdict.context.Namespace;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -13,14 +13,14 @@ import java.util.stream.Stream;
  */
 public class NamespaceInitializer {
 
-    private final INamespace namespace;
+    private final Namespace namespace;
 
     public NamespaceInitializer(String namespaceName) {
         namespace = ExdictContext.createNamespace(namespaceName);
         init();
     }
 
-    public NamespaceInitializer(INamespace namespace) {
+    public NamespaceInitializer(Namespace namespace) {
         this.namespace = namespace;
         init();
     }
@@ -38,9 +38,9 @@ public class NamespaceInitializer {
         // saved files
         getDefaultExdictErrorsLoader().forEach(loader -> {
             if (loader.getProperty().equals("code"))
-                namespace.getResolverInitProvider().setCodeLoader(loader);
+                namespace.getInitializationProvider().setCodeLoader(loader);
             else
-                namespace.getResolverInitProvider()
+                namespace.getInitializationProvider()
                         .addLoader(loader);
         });
 
@@ -49,15 +49,15 @@ public class NamespaceInitializer {
 
         // load files and init code generator with codes from files
         try {
-            namespace.getResolverInitProvider().load();
-            namespace.getCodeGenerator().init(namespace.getResolverInitProvider());
+            namespace.getInitializationProvider().load();
+            namespace.getCodeGenerator().init(namespace.getInitializationProvider());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
 
-    public INamespace getNamespace() {
+    public Namespace getNamespace() {
         return namespace;
     }
 

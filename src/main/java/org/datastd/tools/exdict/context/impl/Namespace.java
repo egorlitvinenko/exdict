@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 /**
  * @author Egor Litvinenko
  */
-public class Namespace implements INamespace {
+public class Namespace implements org.datastd.tools.exdict.context.Namespace {
 
     private final String name;
-    private ResolverInitProvider resolverInitProvider;
+    private InitializationProvider initializationProvider;
     private ErrorsStoreProvider errorsStoreProvider;
     private ExdictCodeGenerator codeGenerator;
-    private IGroupInfoHelper groupInfoHelper;
+    private GroupInfoHelper groupInfoHelper;
 
     public Namespace(String name) {
         this.name = name;
@@ -28,14 +28,12 @@ public class Namespace implements INamespace {
         return name;
     }
 
-    @Override
-    public ResolverInitProvider getResolverInitProvider() {
-        return resolverInitProvider;
+    public InitializationProvider getInitializationProvider() {
+        return initializationProvider;
     }
 
-    @Override
-    public void setResolverInitProvider(ResolverInitProvider resolverInitProvider) {
-        this.resolverInitProvider = resolverInitProvider;
+    public void setInitializationProvider(InitializationProvider initializationProvider) {
+        this.initializationProvider = initializationProvider;
     }
 
     @Override
@@ -59,12 +57,12 @@ public class Namespace implements INamespace {
     }
 
     @Override
-    public IGroupInfoHelper getGroupInfoHelper() {
+    public GroupInfoHelper getGroupInfoHelper() {
         return groupInfoHelper;
     }
 
     @Override
-    public void setGroupInfoHelper(IGroupInfoHelper groupInfoHelper) {
+    public void setGroupInfoHelper(GroupInfoHelper groupInfoHelper) {
         this.groupInfoHelper = groupInfoHelper;
     }
 

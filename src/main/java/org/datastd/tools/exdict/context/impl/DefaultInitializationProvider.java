@@ -1,7 +1,7 @@
 package org.datastd.tools.exdict.context.impl;
 
 import org.datastd.tools.exdict.context.ExdictErrorsLoader;
-import org.datastd.tools.exdict.context.ResolverInitProvider;
+import org.datastd.tools.exdict.context.InitializationProvider;
 import org.datastd.tools.exdict.exceptions.ExceptionInfo;
 
 import java.beans.IntrospectionException;
@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author Egor Litvinenko
  */
-public class DefaultResolverInitProvider implements ResolverInitProvider {
+public class DefaultInitializationProvider implements InitializationProvider {
 
     private List<ExdictErrorsLoader> loaders;
     private Map<String, Integer> exceptionInfosCodeByRecordCode;
@@ -24,7 +24,7 @@ public class DefaultResolverInitProvider implements ResolverInitProvider {
     private Map<String, ExceptionInfo> exceptionInfosByMessage;
     private ExdictErrorsLoader defaultCodeLoader;
 
-    public DefaultResolverInitProvider() {
+    public DefaultInitializationProvider() {
         loaders = new ArrayList<>();
     }
 

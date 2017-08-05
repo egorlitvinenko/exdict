@@ -1,7 +1,7 @@
 package org.datastd.tools.exdict.context.impl;
 
 import org.datastd.tools.exdict.context.ExdictCodeGenerator;
-import org.datastd.tools.exdict.context.INamespace;
+import org.datastd.tools.exdict.context.Namespace;
 import org.datastd.tools.exdict.exceptions.ExceptionInfo;
 
 import java.util.Map;
@@ -15,7 +15,7 @@ public class DefaultCodeGenerator extends AbstractCodeGenerator implements Exdic
         super();
     }
 
-    public DefaultCodeGenerator(INamespace namespace) {
+    public DefaultCodeGenerator(Namespace namespace) {
         super(namespace);
     }
 

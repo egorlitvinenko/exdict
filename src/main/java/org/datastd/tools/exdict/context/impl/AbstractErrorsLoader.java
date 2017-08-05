@@ -16,12 +16,12 @@ public abstract class AbstractErrorsLoader implements ExdictErrorsLoader {
 
     public AbstractErrorsLoader(final String property) {
         this.property = property;
-        values = new HashMap<>();
+        this.values = new HashMap<>();
     }
 
-    public AbstractErrorsLoader(final String property, final String resource) {
+    public AbstractErrorsLoader(final String property, final Object resource) {
         this(property);
-        this.resource = resource;
+        this.resource = null == resource ? null : String.valueOf(resource);
     }
 
     @Override
@@ -37,15 +37,15 @@ public abstract class AbstractErrorsLoader implements ExdictErrorsLoader {
     @Override
     public void load(Object resource) throws Exception {
         if (null == resource) {
-            throw new Exception("resource is null");
+            throw new NullPointerException("resource is null");
         }
         if (!loadedResource.contains(String.valueOf(resource))) {
-            loadExternal(resource);
+            loadInternal(resource);
             loadedResource.add(String.valueOf(resource));
         }
     }
 
-    protected abstract void loadExternal(Object resource) throws Exception;
+    protected abstract void loadInternal(Object resource) throws Exception;
 
     @Override
     public void loadSilent() {

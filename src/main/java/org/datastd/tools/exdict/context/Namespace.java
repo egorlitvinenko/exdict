@@ -4,18 +4,17 @@ import org.datastd.tools.exdict.exceptions.ExdictException;
 import org.datastd.tools.exdict.exceptions.ExdictRuntimeException;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Egor Litvinenko
  */
-public interface INamespace {
+public interface Namespace {
 
     String getName();
 
-    ResolverInitProvider getResolverInitProvider();
+    InitializationProvider getInitializationProvider();
 
-    void setResolverInitProvider(ResolverInitProvider resolverInitProvider);
+    void setInitializationProvider(InitializationProvider initializationProvider);
 
     ErrorsStoreProvider getErrorsStoreProvider();
 
@@ -25,9 +24,9 @@ public interface INamespace {
 
     void setCodeGenerator(ExdictCodeGenerator codeGenerator);
 
-    IGroupInfoHelper getGroupInfoHelper();
+    GroupInfoHelper getGroupInfoHelper();
 
-    void setGroupInfoHelper(IGroupInfoHelper groupInfoHelper);
+    void setGroupInfoHelper(GroupInfoHelper groupInfoHelper);
 
     List<Integer> getInitialCodes();
 

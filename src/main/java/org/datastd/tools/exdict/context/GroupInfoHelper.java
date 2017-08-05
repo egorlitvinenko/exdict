@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Egor Litvinenko
  *
  */
-public interface IGroupInfoHelper {
+public interface GroupInfoHelper {
 
     Map<String, GroupInfo> getGroupInfos();
 

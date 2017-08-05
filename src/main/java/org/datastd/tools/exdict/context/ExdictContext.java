@@ -19,14 +19,14 @@ public class ExdictContext implements IExdictException {
 
     public static String DEFAULT_NAMESPACE = "DEFAULT_NAMESPACE";
 
-    private static Map<String, INamespace> namespaces = new ConcurrentHashMap<>();
+    private static Map<String, Namespace> namespaces = new ConcurrentHashMap<>();
 
-    public static ResolverInitProvider getResolverInitProvider() {
-        return namespaces.get(DEFAULT_NAMESPACE).getResolverInitProvider();
+    public static InitializationProvider getResolverInitProvider() {
+        return namespaces.get(DEFAULT_NAMESPACE).getInitializationProvider();
     }
 
-    public static void setResolverInitProvider(ResolverInitProvider resolverInitProvider) {
-        namespaces.get(DEFAULT_NAMESPACE).setResolverInitProvider(resolverInitProvider);
+    public static void setResolverInitProvider(InitializationProvider initializationProvider) {
+        namespaces.get(DEFAULT_NAMESPACE).setInitializationProvider(initializationProvider);
     }
 
     public static ErrorsStoreProvider getErrorsStoreProvider() {
@@ -45,11 +45,11 @@ public class ExdictContext implements IExdictException {
         namespaces.get(DEFAULT_NAMESPACE).setCodeGenerator(codeGenerator);
     }
 
-    public static IGroupInfoHelper getGroupInfoHelper() {
+    public static GroupInfoHelper getGroupInfoHelper() {
         return namespaces.get(DEFAULT_NAMESPACE).getGroupInfoHelper();
     }
 
-    public static void setGroupInfoHelper(IGroupInfoHelper groupInfoHelper) {
+    public static void setGroupInfoHelper(GroupInfoHelper groupInfoHelper) {
         namespaces.get(DEFAULT_NAMESPACE).setGroupInfoHelper(groupInfoHelper);
     }
 
@@ -63,7 +63,7 @@ public class ExdictContext implements IExdictException {
 
     public static void flushAll() throws Exception {
         final List<Exception> errors = new ArrayList<>();
-        namespaces.values().stream().map(INamespace::getErrorsStoreProvider).forEach(provider -> {
+        namespaces.values().stream().map(Namespace::getErrorsStoreProvider).forEach(provider -> {
             try {
                 provider.flushAll();
             } catch (Exception e) {
@@ -75,40 +75,40 @@ public class ExdictContext implements IExdictException {
         }
     }
 
-    public static INamespace namespace(String name) {
+    public static Namespace namespace(String name) {
         return namespaces.get(name);
     }
 
-    public static INamespace defaultNamespace() {
+    public static Namespace defaultNamespace() {
         return namespaces.get(DEFAULT_NAMESPACE);
     }
 
-    public static INamespace createNamespace(String name) {
-        final INamespace namespace = new Namespace(name);
+    public static Namespace createNamespace(String name) {
+        final Namespace namespace = new org.datastd.tools.exdict.context.impl.Namespace(name);
         namespaces.put(name, namespace);
         return namespace;
     }
 
     public static void initWithDefaultProviders() {
-        final INamespace namespace = createNamespace(DEFAULT_NAMESPACE);
+        final Namespace namespace = createNamespace(DEFAULT_NAMESPACE);
         initWithDefaultProviders(namespace);
     }
 
-    public static void initWithDefaultProviders(INamespace namespace) {
+    public static void initWithDefaultProviders(Namespace namespace) {
         namespace.setGroupInfoHelper(new DefaultGroupInfoHelper());
         namespace.setCodeGenerator(new DefaultCodeGenerator(namespace));
         namespace.setErrorsStoreProvider(new DefaultErrorsStoreProvider(namespace));
-        namespace.setResolverInitProvider(new DefaultResolverInitProvider());
+        namespace.setInitializationProvider(new DefaultInitializationProvider());
     }
 
     public static synchronized Integer guessInitialCode() {
-        return namespaces.values().stream().map(INamespace::getInitialCodes).flatMap(List::stream).reduce(Integer::max).orElse(0) + 10000;
+        return namespaces.values().stream().map(Namespace::getInitialCodes).flatMap(List::stream).reduce(Integer::max).orElse(0) + 10000;
     }
 
     // OBJECT CLASS
 
     private final IExdictException exception;
-    private INamespace objectNamespace;
+    private Namespace objectNamespace;
     private String group;
 
     private ExdictContext(IExdictException exception) {
@@ -148,7 +148,7 @@ public class ExdictContext implements IExdictException {
     }
 
     public ExceptionInfo findExceptionInfoByMessage(final String message) {
-        ExceptionInfo info = objectNamespace.getResolverInitProvider().getExceptionInfosByMessage().get(message);
+        ExceptionInfo info = objectNamespace.getInitializationProvider().getExceptionInfosByMessage().get(message);
         if (null == info) {
             info = objectNamespace.getErrorsStoreProvider().getByMessage(message);
         }
